@@ -1,16 +1,9 @@
+"""Models for preferred coffee orders app"""
+
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
-
-def connect_to_db(app, db_name):
-    """Connect to database."""
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///{db_name}"
-    app.config["SQLALCHEMY_ECHO"] = True
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-    db.app = app
-    db.init_app(app)
 
 
 class User(db.Model):
@@ -29,8 +22,9 @@ class User(db.Model):
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
+
 class PreferredOrder(db.Model):
-    """A order made by a user"""
+    """An order made by a user"""
 
     __tablename__ = 'preferred-orders'
 
@@ -43,11 +37,25 @@ class PreferredOrder(db.Model):
     user = db.relationship("User", back_populates="preferred-orders")
 
     def __repr__(self):
+        return f'<Rating rating_id={self.rating_id} score={self.score}>'
+
+
+def connect_to_db(flask_app, db_uri="postgresql:///preferredorders", echo=True):
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print("You've connected to the database!")
     
-
-
 
 if __name__ == "__main__":
     from server import app
+
+    # Call connect_to_db(app, echo=False) if your program output gets
+    # too annoying; this will tell SQLAlchemy not to print out every
+    # query it executes.
 
     connect_to_db(app)
