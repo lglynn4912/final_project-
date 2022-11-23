@@ -1,0 +1,19 @@
+[
+    {
+        "name" : "Affago",
+        "description" : "Espresso poured on a vanilla ice cream. Served in a cappuccino cup"
+        
+    },
+    {
+        "name" : "Americano",
+        "description" : "Espresso poured on a vanilla ice cream. Served in a cappuccino cup. Alternatively known as Espresso Americano"
+
+    },
+    {   
+        "name": "Espresso Americano",
+        "description" : "Espresso poured on a vanilla ice cream. Served in a cappuccino cup. Alternatively known as just Americano"
+        
+    }
+
+
+]

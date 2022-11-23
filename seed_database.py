@@ -9,7 +9,7 @@ import crud
 import model
 import server
 
-os.system("dropdb ratings")
+os.system("dropdb ")
 os.system('createdb ratings')
 
 model.connect_to_db(server.app)
@@ -24,7 +24,6 @@ for drink in drink_names:
     name = drink['name']
     drink_description = drink['description']
    
-
     drink = crud.create_drink(
         name=name,
         drink_description=drink_description 

@@ -2,10 +2,8 @@
 
 from flask import Flask, request, session, flash, redirect
 
-# "__name__" is a special Python variable for the name of the current module
-# Flask wants to know this to know what any imported things are relative to.
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -41,7 +39,7 @@ def index():
 def greet_person():
     """Get user by name."""
 
-    user = request.args.get("person")
+    user = request.args.get("username")
 
 
     return f"""
@@ -62,6 +60,7 @@ def register_user():
     """Create a new user."""
 
     email = request.form.get("email")
+    user = request.form.get("username")
     password = request.form.get("password")
 
     user = crud.get_user_by_email(email)
