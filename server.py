@@ -1,66 +1,32 @@
-"""Greeting Flask app."""
+"""Coffe Order Flask app."""
 
-from flask import Flask, request, session, flash, redirect
-
+from flask import Flask, request, session, flash, render_template,redirect
+from crud import crud
+from search import search
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def start_here():
-    """Home page."""
+@app.route("/")
+def show_homepage():
+    """Show the application's homepage."""
 
-    return """
-    <!doctype html>
-    <html>
-      <head>
-        <title>Start Here</title>
-      </head>
-      <body>
-        <a href="/hello">Take me to the start</a>
-      </body>
-    </html>
-    """
-
-@app.route('/')
-def index():
-    """Show homepage"""
-
-    return """
-    <html>
-    <body>
-      <h1>I am the landing page</h1>
-    </body>
-    </html>
-    """
+    return render_template("homepage.html")
 
 
-@app.route('/greet')
-def greet_person():
-    """Get user by name."""
+@app.route("/accounts")
+def show_account_page():
+    "Show login and create account page"
 
-    user = request.args.get("username")
-
-
-    return f"""
-    <!doctype html>
-    <html>
-      <head>
-        <title>A Compliment</title>
-      </head>
-      <body>
-        Hi, {user}!
-      </body>
-    </html>
-    """
+    return render_template("accounts.html")
 
 
 @app.route("/users", methods=["POST"])
 def register_user():
     """Create a new user."""
 
-    email = request.form.get("email")
     user = request.form.get("username")
+    email = request.form.get("email")
     password = request.form.get("password")
 
     user = crud.get_user_by_email(email)
@@ -72,7 +38,43 @@ def register_user():
         db.session.commit()
         flash("Account created! Please log in.")
 
-    return redirect("/")
+    return redirect("/inputorder")
+
+
+@app.route("/login", methods=["POST"])
+def process_login():
+    """Process user login."""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+    if not user.email or user.password != password:
+        flash("The email or password you entered was incorrect.")
+    else:
+        # Log in user by storing the user's email in session
+        session["user_email"] = user.email
+        flash(f"Welcome back, {user.username}!")
+
+    return redirect("/inputorder")
+
+
+@app.route("/inputorder", methods=["GET"])
+def show_coffee_page():
+    "Show coffee order search page"
+
+    return render_template("inputorder.html")
+
+@app.route("/coffeesearch", methods=["POST"])
+def show_coffee_search_terms():
+    "Show coffee order search page"
+
+    term = request.form.get("name") + request.form.get("milk")
+    location = request.form.get("zipcode")
+
+    return render_template("results.html")
+
+
 
 
 

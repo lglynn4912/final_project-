@@ -21,7 +21,7 @@ class User(db.Model):
     # preferred_orders = db.relationship("Preferred Orders", back_populates="user")
 
     def __repr__(self):
-        return f"<User user_id={self.user_id} email={self.email}>"
+        return f"<User user_name={self.user_name} email={self.email}>"
 
 
 # class PreferredOrder(db.Model):
@@ -53,15 +53,16 @@ class MilkTypes(db.Model):
     milk_name = db.Column(db.String, unique=True, nullable=False)
 
 
-class DrinkOptions(db.Model):
+class DrinkNames(db.Model):
     """Standard drink names"""
 
     __tablename__ = 'drinknames'
 
-    drink_options_id = db.Column(db.Integer,
+    drink_name_id = db.Column(db.Integer,
                         autoincrement=False,
                         primary_key=True)
-    drink_opions_name = db.Column(db.String, unique=True, nullable=False)
+    drink_name = db.Column(db.String, unique=True, nullable=False)
+    drink_description = db.Column(db.String, unique=True, nullable=False)
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///preferredorders", echo=True):

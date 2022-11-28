@@ -9,14 +9,14 @@ import crud
 import model
 import server
 
-os.system("dropdb ")
-os.system('createdb ratings')
+os.system("dropdb drinknames")
+os.system('createdb drinknames')
 
 model.connect_to_db(server.app)
 model.db.create_all()
 
 with open('data/drink_names.json') as f:
-    order_data = json.loads(f.read())
+    drink_names = json.loads(f.read())
 
 drinks_in_db = []
 

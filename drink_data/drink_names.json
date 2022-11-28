@@ -11,9 +11,28 @@
     },
     {   
         "name": "Espresso Americano",
-        "description" : "Espresso poured on a vanilla ice cream. Served in a cappuccino cup. Alternatively known as just Americano"
+        "description" : "Espresso poured on a vanilla ice cream. Served in a cappuccino cup. Alternatively known as Americano"
         
-    }
-
+    },
+    {   
+        "name": "Caffé Latte",
+        "description" : "A tall, mild 'milk coffee' (about 150-300 ml). An espresso with steamed milk and only a little milk foam poured over it. Serve in a latte glass or a coffee cup. Flavoured syrup can be added.  Alternatively known as Latte"
+        
+    },
+    {   
+        "name": "Latte",
+        "description" : "A tall, mild 'milk coffee' (about 150-300 ml). An espresso with steamed milk and only a little milk foam poured over it. Serve in a latte glass or a coffee cup. Flavoured syrup can be added.  Alternatively known as a Cafe Latte"
+        
+    },
+    {   
+        "name": "Caffé Mocha",
+        "description" : "A caffè latte with chocolate and whipped cream, made by pouring about 2 cl of chocolate sauce into the glass, followed by an espresso shot and steamed milk. Alternatively known as a Mocha"
+        
+    },
+    {   
+        "name": "Mocha",
+        "description" : "A caffè latte with chocolate and whipped cream, made by pouring about 2 cl of chocolate sauce into the glass, followed by an espresso shot and steamed milk. Alternatively known as a Caffe Mocha"
+        
+    },
 
 ]
