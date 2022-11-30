@@ -2,15 +2,95 @@
 
 {% block title %}Find My Coffee!{% endblock %}
 
-
-{% block body %}
+<!-- {% block body %}
 
 <h2>Find Your Coffee</h2>
-<form action="/coffeesearch" method="POST">
-  <p><label>Drink Name<input type="text" name="drink"></label></p>
+<form action="/coffeesearchresults" method="POST">
+  <p><label>Drink Name<input type="text" name="drinkname"></label></p>
   <p><label>Milk Type <input type="text" name="milk"></label></p>
   <p><label>Zipcode <input type="text" name="zipcode"></label></p>
-  <p><input type="submit" value="Search"></p>
+  <p><input type="submit"></p>
 </form>
+
+{% endblock %} -->
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Find Your Coffee</h2>
+
+      <form method="POST" action="/coffeesearchresults">
+        <div class="row">
+          <label class="form-label above" for="drink-name">Drink Name</label>
+        
+
+          <input
+            id="drink-name"
+            class="form-control"
+            type="text"
+            name="drinkname"
+          >
+
+          <div class="row">
+            <label class="form-label above" for="milk-type">Milk Type</label>
+         
+            <div class="col-8">
+                <input
+                  id="milk-type"
+                  class="form-control"
+                  type="text"
+                  name="milk"
+                >
+              </div>
+
+
+          </div>
+
+          <div class="row">
+            <label class="form-label above" for="search-zip">Zip Code</label>
+  
+            <input
+              id="search-zip"
+              class="form-control"
+              type="text"
+              name="zipcode"
+            >
+          </div>
+
+
+        <div class="row">
+          <label class="form-label above" for="search-radius">Distance Radius</label>
+          <small class="form-text text-muted">
+            How far to search from your location?
+          </small>
+
+          <div class="col-8">
+              <input
+                id="search-radius"
+                class="form-control"
+                type="number"
+                name="radius"
+              >
+            </div>
+
+            <div class="col-3 offset-1">
+              <select class="form-control form-select" name="unit">
+                <option value="miles">miles</option>
+                <option value="km">kilometers</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-3">
+            <input type="submit" value="Find My Coffee" class="btn btn-primary">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

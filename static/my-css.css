@@ -1,55 +1,49 @@
-body {
-    font-family: monospace;
-    font-size: 52px;
-    background-color: lightblue;
-  }
-  
-  section {
-    display: flex;
-    justify-content: center;
-  }
-  
-  #letter-buttons {
-    width: 40%;
-    margin: 12px auto;
-    text-align: center;
-    flex-wrap: wrap;
-  }
-  
-  #play-again {
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: underline;
-    color: red;
-    cursor: pointer;
-    margin: 0.67em 0;
-  }
-  
-  #play-again:hover {
-    text-decoration: none;
-  }
-  
-  .letter-box {
-    width: 1.5em;
-    height: 2em;
-    margin: 5px;
-    border-bottom: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  
-  button {
-    width: 1.5em;
-    height: 1.5em;
-    font-size: 0.6em;
-    background: white;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-  
-  button[disabled='true'] {
-    cursor: default;
-  }
+.header {
+  height: 160px;
+  padding-top: 0.8em;
+  text-align: center;
+  font-size: 3em;
+  background: pink url(/static/img/balloonicorn.png) no-repeat right;
+  background-size: 220px 210px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.67em;
+}
+
+img {
+  width: 100%;
+}
+
+pre {
+  height: 150px;
+  overflow-y: scroll;
+  font-size: 11px;
+  resize: vertical;
+}
+
+h1,
+h2,
+h3,
+h4,
+th {
+  font-family: 'Lobster', sans-serif;
+  font-weight: normal;
+}
+
+.backlink::before {
+  content: '≪';
+}
+
+#result-count {
+  font-weight: bold;
+}
+
+.row > * {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.row > .above {
+  margin-bottom: 0;
+  margin-top: 10px;
+}

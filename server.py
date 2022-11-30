@@ -6,8 +6,9 @@ from appdetails import SEARCH_URL, api_key
 import requests
 from urllib.parse import quote_plus
 
-
+#Yelp API formatting
 HEADERS = {'Authorization': 'bearer %s' % api_key}
+
 
 app = Flask(__name__)
 
@@ -64,76 +65,33 @@ def process_login():
     return redirect("/inputorder")
 
 
+
 @app.route("/inputorder", methods=["GET"])
-def show_coffee_page():
+def show_coffee_search_page():
     "Show coffee order search page"
-
-    return render_template("inputorder.html")
-
-
-def search_Yelp_api(term, location, limit):
-     """Query the Search API by a search term and location.
-    Args:
-        term (str): The search term passed to the API.
-        location (str): The search location passed to the API.
-    Returns:
-        dict: The JSON response from the request.
-    """
-
-results = []
-
-#https://api.yelp.com/v3/businesses/search?term=goat+milk+latte+iced&location=94116#
-url = SEARCH_URL.format(term=quote_plus('term'),location=quote_plus('location'))
-
-response = requests.get(url,HEADERS)
-
-coffee_order_results = response.json
-
-results = coffee_order_results['businesses']
-   
-# res = requests.get(SEARCH_URL, api_key, url_params=url_params)
-
-# response = requests.get(url=SEARCH_URL, params=search_parameters, headers=HEADERS)
-    
-for i in range(results):
-    BusinessName = results['businesses'][i].get("name")
-    BusinessWebsite = results['businesses'][i].get("url")
-    IsClosed = results['businesses'][i].get("is_closed")
-    Location = results['businesses'][i].get("display_address")
-    print(f'{BusinessName}, Is Currently Closed:{IsClosed}. {Location} {BusinessWebsite}')
+ 
+    return render_template("inputorder.html") 
 
 
-@app.route("/coffeesearch", methods=["POST"])
+@app.route("/coffeesearchresults", methods=["POST"])
 def show_coffee_search_results():
     "Show coffee order search results"
+
+    term = request.form.get("drinkname", "milk")
+    location = request.form.get("zipcode")
+
+    url = SEARCH_URL.format(term=quote_plus(term),location=quote_plus(location))
+
+    payload = {'term' : term,
+        'zipcode': location}
+
+    response = requests.get(url, params=payload, headers=HEADERS)
+
+    coffee_order_results = response.json
+
+    return render_template("results.html", coffee_order_results=coffee_order_results)
+
  
-    if request.method == "POST":
-        term = request.form.get["drinkname"], request.form.get["milk"]
-        location = request.form.get["zipcode"]
-        limit = 10
-        return search_Yelp_api(term,location,limit)
-    else:
-        return render_template("inputorder.html") 
-
-   
-# # res = requests.get(SEARCH_URL, api_key, url_params=url_params)
-
-# # response = requests.get(url=SEARCH_URL, params=search_parameters, headers=HEADERS)
-    
-
-#     coffee_order_results = response.json()
-
-#     requested_coffee_order = coffee_order_results['businesses']
-
-#     for i in range(requested_coffee_order):
-#         BusinessName = coffee_order_results['businesses'][i].get("name")
-#         BusinessWebsite = coffee_order_results['businesses'][i].get("url")
-#         IsClosed = coffee_order_results['businesses'][i].get("is_closed")
-#         Location = coffee_order_results['businesses'][i].get("display_address")
-        
-#     return render_template("results.html", business_name=BusinessName, is_closed=IsClosed, location=Location, business_website=BusinessWebsite)
-
-
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
     # our web app if we change the code.

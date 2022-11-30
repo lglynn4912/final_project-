@@ -1,16 +1,21 @@
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-    <html lang="en-us">
-    <head>
-      <meta charset="utf-8">
-      <title>Results</title>
-    </head>
-    <body>
-      <p>{business_name}
+
+{% block title %}Find My Coffee{% endblock %}
+
+
+{% block content %}
+
+
+  <div id="coffee-search-results">
+    <h2>Coffee Results</h2>
+
+    <p>
+      <span id="result-count">
+        {{ coffee_order_results['businesses']['name'] }}
+      </span>
+      events matched your search.
     </p>
-    <p>Is this business closed? {is_closed}
-    </p>
-    <p> Here's the address: {location} and website {business_website}
-    </p>
-    </body>
-  </html>
+
+
+    {% endblock %}

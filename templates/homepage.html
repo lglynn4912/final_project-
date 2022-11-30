@@ -1,35 +1,61 @@
 {% extends 'base.html' %}
+
 {% block title %}Find My Coffee{% endblock %}
 
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-7">
+      <div id="welcome">
+        <h2>Welcome</h2>
+        <p>Imagine a world where you can drink the coffee you actually want/p>
+      </div>
 
-{% block body %}
+      <div id="inputorder">
+        <h2>Find My Coffee</h2>
+        <p>
+          Let's find the ideal spot for the exact coffee you're after
+        </p>
 
-<h2>Find Your Coffee</h2>
-<form action="/coffeesearch" method="POST">
-  <p><label>Drink Name<input type="text" name="drinkname"></label></p>
-  <p><label>Milk Type <input type="text" name="milk"></label></p>
-  <p><label>Zipcode <input type="text" name="zipcode"></label></p>
-  <p><input type="submit"></p>
-</form>
-
-<h2>Log In</h2>
-<form action="/login" method="POST">
-  <p>Name</p><input type="text" name="username"></p>
-  <p>Email <input type="text" name="email"></p>
-  <p>Password <input type="password" name="password"></p>
-  <p><input type="submit"></p>
-</form>
-
-  <h2>Create an Account</h2>
-  <form action="/users" method="POST">
-    <p>Name</p><input type="text" name="username"></p>
-    <p>Email <input type="text" name="email"></p>
-    <p>Password <input type="password" name="password"></p>
-    <p><input type="submit"></p>
-  </form>
+        <p>
+          <a class="btn btn-primary" href="/inputorder">
+            Click here to search for some coffee
+          </a>
+        </p>
+      </div>
+    </div>
 
 
+    <div id="signup">
+      <h2>Find My Coffee For Life</h2>
+      <p>
+        Sign In
+      </p>
+
+      <p>
+        <a class="btn btn-primary" href="/accounts">
+          Click here to search for some coffee
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+    <div id="signup">
+      <h2>Find My Coffee For Life</h2>
+      <p>
+        Let's Create an Account 
+      </p>
+
+      <p>
+        <a class="btn btn-primary" href="/accounts">
+          Click here to search for some coffee
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+  
 {% endblock %}
-
-
 
