@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}Find My Coffee{% endblock %}
 
+
 {% block body %}
-  <h1>Welcome!</h1>
 
-  <h2>Navigation</h2>
+<h2>Find Your Coffee</h2>
+<form action="/coffeesearch" method="POST">
+  <p><label>Drink Name<input type="text" name="drink"></label></p>
+  <p><label>Milk Type <input type="text" name="milk"></label></p>
+  <p><label>Zipcode <input type="text" name="zipcode"></label></p>
+  <p><input type="submit"></p>
+</form>
 
-  <h2>Find Your Coffee</h2>
-  <form action="/getcoffee" method="POST">
-    <p><label>Drink Name<input type="text" name="drink"></label></p>
-    <p><label>Temperature <input type="text" name="temperature"></label></p>
-    <p><label>Milk Type <input type="text" name="milk"></label></p>
-    <p><input type="submit"></p>
-  </form>
-
-  <h2>Log In</h2>
-  <form action="/login" method="POST">
-    <p>Email <input type="text" name="email"></p>
-    <p>Password <input type="password" name="password"></p>
-    <p><input type="submit"></p>
-  </form>
+<h2>Log In</h2>
+<form action="/login" method="POST">
+  <p>Name</p><input type="text" name="username"></p>
+  <p>Email <input type="text" name="email"></p>
+  <p>Password <input type="password" name="password"></p>
+  <p><input type="submit"></p>
+</form>
 
   <h2>Create an Account</h2>
   <form action="/users" method="POST">
+    <p>Name</p><input type="text" name="username"></p>
     <p>Email <input type="text" name="email"></p>
     <p>Password <input type="password" name="password"></p>
     <p><input type="submit"></p>
@@ -30,3 +30,6 @@
 
 
 {% endblock %}
+
+
+

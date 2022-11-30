@@ -1,10 +1,15 @@
 """Coffe Order Flask app."""
 
 from flask import Flask, request, session, flash, render_template,redirect
-from crud import crud
-from search import search
+import crud
+from appdetails import SEARCH_URL, api_key
+import requests
+from search import search_Yelp_api
+
+HEADERS = {'Authorization': 'bearer %s' % api_key}
 
 app = Flask(__name__)
+
 
 
 @app.route("/")
@@ -68,14 +73,31 @@ def show_coffee_page():
 @app.route("/coffeesearch", methods=["POST"])
 def show_coffee_search_terms():
     "Show coffee order search page"
+ 
+    if request.method == "POST":
+        term = request.form.get("drinkname")
+        location = request.form.get("zipcode")
+        limit = 10
+        return run_search(term,location,limit)
+    else:
+        return render_template("inputorder.html") 
 
-    term = request.form.get("name") + request.form.get("milk")
-    location = request.form.get("zipcode")
+def_run_search(term,location,limit):
+    results = search 
 
-    return render_template("results.html")
+    response = requests.get(url=SEARCH_URL, params= headers=HEADERS)
 
+    coffee_order_results = response.json()
 
+    requested_coffee_order = coffee_order_results['businesses']
 
+    for i in range(requested_coffee_order):
+        BusinessName = coffee_order_results['businesses'][i].get("name")
+        BusinessWebsite = coffee_order_results['businesses'][i].get("url")
+        IsClosed = coffee_order_results['businesses'][i].get("is_closed")
+        Location = coffee_order_results['businesses'][i].get("display_address")
+        
+    return render_template("results.html", business_name=BusinessName, is_closed=IsClosed, location=Location, business_website=BusinessWebsite)
 
 
 if __name__ == '__main__':
