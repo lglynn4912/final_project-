@@ -2,6 +2,7 @@ import requests
 from appdetails import *
 from urllib.parse import quote_plus
 
+HEADERS = {'Authorization': 'bearer %s' % api_key}
 
 def search_Yelp_api(term, location):
      """Query the Search API by a search term and location.
@@ -11,15 +12,12 @@ def search_Yelp_api(term, location):
     Returns:
         dict: The JSON response from the request.
     """
-
 results = []
 
-url = SEARCH_URL.format(
-    term=quote_plus(drink)+quote_plus(milk),
-    location=quote_plus(zipcode)
-    )
+#https://api.yelp.com/v3/businesses/search?term=goat+milk+latte+iced&location=94116#
+url = SEARCH_URL.format(term=quote_plus(term),location=quote_plus(location))
 
-response = requests.get(url,HEADERS)
+response = requests.get(url, HEADERS)
 
 coffee_order_results = response.json
 
@@ -29,10 +27,9 @@ results += coffee_order_results['businesses']
 
 # response = requests.get(url=SEARCH_URL, params=search_parameters, headers=HEADERS)
     
-for i in range(coffee_order_results):
-    BusinessName = coffee_order_results['businesses'][i].get("name")
-    BusinessWebsite = coffee_order_results['businesses'][i].get("url")
-    IsClosed = coffee_order_results['businesses'][i].get("is_closed")
-    Location = coffee_order_results['businesses'][i].get("display_address")
-    print(f'{BusinessName}, Is Currently Closed:{IsClosed}. {Location} {BusinessWebsite}')
-
+# for i in range(results):
+#     BusinessName = results['businesses'][i].get("name")
+#     BusinessWebsite = results['businesses'][i].get("url")
+#     IsClosed = results['businesses'][i].get("is_closed")
+#     Location = results['businesses'][i].get("display_address")
+#     print(f'{BusinessName}, Is Currently Closed:{IsClosed}. {Location} {BusinessWebsite}')
