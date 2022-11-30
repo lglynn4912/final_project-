@@ -5,6 +5,7 @@ import crud
 from appdetails import SEARCH_URL, api_key 
 import requests
 from urllib.parse import quote_plus
+import json
 
 #Yelp API formatting
 HEADERS = {'Authorization': 'bearer %s' % api_key}
@@ -82,14 +83,14 @@ def show_coffee_search_results():
 
     url = SEARCH_URL.format(term=quote_plus(term),location=quote_plus(location))
 
-    payload = {'term' : term,
-        'zipcode': location}
+    payload = {'term' : term.replace(' ', '+'),
+        'zipcode': location.replace(' ', '+')}
 
-    response = requests.get(url, params=payload, headers=HEADERS)
+    response = requests.get(url, headers=HEADERS, params=payload)
 
     coffee_order_results = response.json
 
-    return render_template("results.html", coffee_order_results=coffee_order_results)
+    return render_template("results.html", search_results=coffee_order_results )
 
  
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ with open('data/drink_names.json') as f:
 drinks_in_db = []
 
 for drink in drink_names:
-    name = drink['name']
+    name = drink['drinkname']
     drink_description = drink['description']
    
     drink = crud.create_drink(

@@ -7,15 +7,30 @@
 {% block content %}
 
 
-  <div id="coffee-search-results">
-    <h2>Coffee Results</h2>
+    <div id="coffee-search-results">
+      <h2>Coffee Search Results</h2>
 
+        <p>
+          <span id="result-count">
+            {{ search_results['name'] }}
+          </span>
+           matched your search.
+        </p>
+
+
+        <div class="col">
+          <div class="d-flex w-100 justify-content-between">
+            <a href="/coffeesearchresults" target="_blank">
+              <h5>{{ search_results['name'] }}</h5>
+        </div>
+        </div>
     <p>
-      <span id="result-count">
-        {{ coffee_order_results['businesses']['name'] }}
+      <span id="additional-results">
+        <p>
+          <a class="btn btn-primary" href="/inputorder">
+            Try Again
+          </a>
       </span>
-      events matched your search.
+      Didn't find a match? Click here to update your criteria
     </p>
-
-
-    {% endblock %}
+{% endblock %}
