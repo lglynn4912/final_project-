@@ -8,7 +8,7 @@ from urllib.parse import quote_plus
 import json
 
 #Yelp API formatting
-HEADERS = {'Authorization': 'bearer %s' % api_key}
+HEADERS = {'Authorization': 'Bearer %s' % api_key}
 
 
 app = Flask(__name__)
@@ -81,14 +81,18 @@ def show_coffee_search_results():
     term = request.form.get("drinkname", "milk")
     location = request.form.get("zipcode")
 
-    url = SEARCH_URL.format(term=quote_plus(term),location=quote_plus(location))
+    print("Search terms:")
+    print("term:", term)
+    print("zipcode:", location)
 
-    payload = {'term' : term.replace(' ', '+'),
-        'zipcode': location.replace(' ', '+')}
+    url = "%s?term=%s&location=%s" % (SEARCH_URL, term, location)
+    print("search url", url)
 
-    response = requests.get(url, headers=HEADERS, params=payload)
+    response = requests.get(url, headers=HEADERS )
+    print("response", response)
+    print("response", response.json())
 
-    coffee_order_results = response.json
+    coffee_order_results = response.json()
 
     return render_template("results.html", search_results=coffee_order_results )
 

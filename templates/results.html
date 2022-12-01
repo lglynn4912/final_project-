@@ -12,17 +12,21 @@
 
         <p>
           <span id="result-count">
-            {{ search_results['name'] }}
+            {{ search_results['total'] }}
           </span>
            matched your search.
         </p>
 
 
         <div class="col">
-          <div class="d-flex w-100 justify-content-between">
-            <a href="/coffeesearchresults" target="_blank">
-              <h5>{{ search_results['name'] }}</h5>
-        </div>
+            <a href="/coffeesearchresults" target="_blank"></a>
+            <ul>
+              {% for business in search_results['businesses'] %}
+              <li>
+                <a href="{{ business['url'] }}" target="_blank">{{ business['name'] }}</a>
+              </li>
+              {% endfor %}
+            </ul>
         </div>
     <p>
       <span id="additional-results">
