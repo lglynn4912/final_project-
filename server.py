@@ -94,7 +94,7 @@ def show_coffee_search_results():
 
     coffee_order_results = response.json()
 
-    return render_template("results.html", search_results=coffee_order_results )
+    return render_template("results.html", search_results=coffee_order_results)
 
  
 if __name__ == '__main__':

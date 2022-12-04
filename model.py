@@ -18,11 +18,10 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    # preferred_orders = db.relationship("Preferred Orders", back_populates="user")
-
     def __repr__(self):
         return f"<User user_name={self.user_name} email={self.email}>"
 
+ # preferred_orders = db.relationship("Preferred Orders", back_populates="user")
 
 # class PreferredOrder(db.Model):
 #     """An order made by a user"""
@@ -36,13 +35,15 @@ class User(db.Model):
 #     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
 
-#     # user = db.relationship("User", back_populates="preferred-orders")
-
 #     def __repr__(self):
 #         return f"<>"
 
 
-class MilkTypes(db.Model):
+#     # user = db.relationship("User", back_populates="preferred-orders")
+
+
+
+class MilkType(db.Model):
     """Milk types"""
 
     __tablename__ = 'milktypes'
@@ -52,8 +53,10 @@ class MilkTypes(db.Model):
                         primary_key=True)
     milk_name = db.Column(db.String, unique=True, nullable=False)
 
+   def __repr__(self):
+        return f"<MilkTypes milk_name={self.milk_name}>"
 
-class DrinkNames(db.Model):
+class DrinkName(db.Model):
     """Standard drink names"""
 
     __tablename__ = 'drinknames'
