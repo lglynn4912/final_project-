@@ -1,11 +1,13 @@
 """Coffe Order Flask app."""
 
 from flask import Flask, request, session, flash, render_template,redirect
-import crud
+
+from model import connect_to_db, db
 from appdetails import SEARCH_URL, api_key 
+import crud
 import requests
 from urllib.parse import quote_plus
-import json
+
 
 #Yelp API formatting
 HEADERS = {'Authorization': 'Bearer %s' % api_key}
@@ -32,7 +34,7 @@ def show_account_page():
 def register_user():
     """Create a new user."""
 
-    user = request.form.get("username")
+    user = request.form.get("user_name")
     email = request.form.get("email")
     password = request.form.get("password")
 
@@ -40,7 +42,7 @@ def register_user():
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
-        user = crud.create_user(email, password)
+        user = crud.create_user(user, email, password)
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
@@ -60,8 +62,8 @@ def process_login():
         flash("The email or password you entered was incorrect.")
     else:
         # Log in user by storing the user's email in session
-        session["user_email"] = user.email
-        flash(f"Welcome back, {user.username}!")
+        session["email"] = user.email
+        flash(f"Welcome back, {user.user_name}!")
 
     return redirect("/inputorder")
 

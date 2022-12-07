@@ -1,4 +1,4 @@
-"""Models for preferred coffee orders app"""
+"""Models for Find my Coffee flask app"""
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    """A user."""
+    """A user with a coffee profile"""
 
     __tablename__ = 'users'
 
@@ -19,7 +19,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
 
     def __repr__(self):
-        return f"<User user_name={self.user_name} email={self.email}>"
+        return f'<User user_name={self.user_name} email={self.email}>'
 
  # preferred_orders = db.relationship("Preferred Orders", back_populates="user")
 
@@ -34,41 +34,41 @@ class User(db.Model):
 #     preferred_order_name = db.Column(db.String, unique=False, nullable=False)
 #     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
-
 #     def __repr__(self):
 #         return f"<>"
-
 
 #     # user = db.relationship("User", back_populates="preferred-orders")
 
 
+class MilkName(db.Model):
+    """Milk option names"""
 
-class MilkType(db.Model):
-    """Milk types"""
-
-    __tablename__ = 'milktypes'
+    __tablename__ = 'milknames'
 
     milk_id = db.Column(db.Integer,
-                        autoincrement=False,
+                        autoincrement=True,
                         primary_key=True)
-    milk_name = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, unique=True, nullable=False)
 
-   def __repr__(self):
-        return f"<MilkTypes milk_name={self.milk_name}>"
+def __repr__(self):
+        return f'<MilkName name={self.name}>'
 
 class DrinkName(db.Model):
-    """Standard drink names"""
+    """Standard list of coffee drink names"""
 
     __tablename__ = 'drinknames'
 
     drink_name_id = db.Column(db.Integer,
-                        autoincrement=False,
+                        autoincrement=True,
                         primary_key=True)
-    drink_name = db.Column(db.String, unique=True, nullable=False)
-    drink_description = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, unique=True, nullable=False)
+    description = db.Column(db.String, unique=True, nullable=False)
+
+def __repr__(self):
+        return f'<DrinkName name={self.name}>'
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///preferredorders", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///drinkorders", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
