@@ -43,7 +43,6 @@ class PreferredOrder(db.Model):
 
 
 
-
 class MilkName(db.Model):
     """Milk option names"""
 
