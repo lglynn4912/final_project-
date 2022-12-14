@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Find My Coffee{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-7">
+      
+      <div id="login">
+<h1>Log In</h1>
+<form action="/login" method="POST">
+  <p>Name</p><input type="text" name="username"></p>
+  <p>Email <input type="text" name="email"></p>
+  <p>Password <input type="password" name="password"></p>
+  <p><input type="submit"></p>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

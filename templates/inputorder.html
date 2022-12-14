@@ -21,17 +21,30 @@
     <div class="col">
       <h2>Find Your Coffee</h2>
 
+
+
+      <form method="POST" action="/preferredorder">
+      <div class="row">    
+      <label for="yes-preferredorder">Preferred Order</label>
+      <input 
+      type="checkbox" 
+      name="preferredorder" 
+      value="preferrorder" 
+      id="yes-preferredorder">
+  
+      
+
       <form method="POST" action="/coffeesearchresults">
         <div class="row">
           <label class="form-label above" for="drink-name">Drink Name</label>
-        
-
+      
           <input
             id="drink-name"
             class="form-control"
             type="text"
             name="drinkname"
           >
+ 
 
           <div class="row">
             <label class="form-label above" for="milk-type">Milk Type</label>
@@ -44,8 +57,6 @@
                   name="milk"
                 >
               </div>
-
-
           </div>
 
           <div class="row">

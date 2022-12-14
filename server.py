@@ -14,6 +14,7 @@ HEADERS = {'Authorization': 'Bearer %s' % api_key}
 
 
 app = Flask(__name__)
+app.secret_key = "supersecret"
 
 
 @app.route("/")
@@ -25,47 +26,61 @@ def show_homepage():
 
 @app.route("/accounts")
 def show_account_page():
-    "Show login and create account page"
+    "Show create account page"
 
     return render_template("accounts.html")
 
 
+@app.route("/login")
+def show_login_page():
+    """Show the login page"""
+
+    return render_template("login.html")
+
+
+@app.route("/myprofile")
+def show_myprofile():
+    """Show the user's profile page"""
+
+    return render_template("myprofile.html")
+
+
 @app.route("/users", methods=["POST"])
 def register_user():
-    """Create a new user."""
+    """Create a new user_name."""
 
-    user = request.form.get("user_name")
+    user_name = request.form.get("user_name")
     email = request.form.get("email")
     password = request.form.get("password")
+    user = crud.create_user(user_name, email, password)
 
-    user = crud.get_user_by_email(email)
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
-        user = crud.create_user(user, email, password)
-        db.session.add(user)
+        new_user = crud.create_user(user_name, email, password)
+        db.session.add(new_user)
         db.session.commit()
         flash("Account created! Please log in.")
 
-    return redirect("/inputorder")
+    return redirect("/login")
 
 
 @app.route("/login", methods=["POST"])
 def process_login():
-    """Process user login."""
+    """Process user_name login."""
 
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = crud.get_user_by_email(email)
-    if not user.email or user.password != password:
+    user_name = crud.get_user_by_email(email)
+    if not user_name.email or user_name.password != password:
         flash("The email or password you entered was incorrect.")
     else:
-        # Log in user by storing the user's email in session
-        session["email"] = user.email
-        flash(f"Welcome back, {user.user_name}!")
+        # Log in user_name by storing the user_name's email in session
+        session["email"] = user_name.email
+        flash(f"Welcome back, {user_name.user_name}!")
 
-    return redirect("/inputorder")
+    return redirect("/myprofile")
 
 
 
@@ -97,6 +112,29 @@ def show_coffee_search_results():
     coffee_order_results = response.json()
 
     return render_template("results.html", search_results=coffee_order_results)
+
+
+
+@app.route("/preferredorder", methods=["POST"])
+def preferred_order(preferred_order):
+    """Create a preferred order"""
+
+    logged_in_email = session.get("email")
+    preferred_order = request.form.get("drinkname")
+
+    if logged_in_email is None:
+        flash("You must log in to create a preferred order")
+    elif not preferred_order:
+        flash("Error: you didn't select a score for your rating.")
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        preferred_order = crud(preferred_order)
+
+        user_preferred_order = crud.create_preferred_order(preferred_order)
+        db.session.add(user_preferred_order)
+        db.session.commit()
+
+        flash(f"You updated your order to {preferred_order}")
 
  
 if __name__ == '__main__':

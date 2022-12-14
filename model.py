@@ -18,26 +18,30 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
+
+    user_preferred_order = db.relationship("PreferredOrder", back_populates="user")
+
     def __repr__(self):
         return f'<User user_name={self.user_name} email={self.email}>'
 
- # preferred_orders = db.relationship("Preferred Orders", back_populates="user")
 
-# class PreferredOrder(db.Model):
-#     """An order made by a user"""
+class PreferredOrder(db.Model):
+    """An order made by a user"""
 
-#     __tablename__ = 'preferred-orders'
+    __tablename__ = 'user-preferred-orders'
 
-#     preferred_order_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     preferred_order_name = db.Column(db.String, unique=False, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    preferred_order_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    preferred_order_name = db.Column(db.String, unique=False, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
-#     def __repr__(self):
-#         return f"<>"
+    user = db.relationship("User", back_populates="user_preferred_order")
 
-#     # user = db.relationship("User", back_populates="preferred-orders")
+    def __repr__(self):
+        return f'<PreferredOrder preferred_order_name={self.preferred_order_name} preferred_order_id={self.preferred_order_id} >'
+
+
 
 
 class MilkName(db.Model):
@@ -52,6 +56,7 @@ class MilkName(db.Model):
 
 def __repr__(self):
         return f'<MilkName name={self.name}>'
+
 
 class DrinkName(db.Model):
     """Standard list of coffee drink names"""
@@ -81,5 +86,4 @@ def connect_to_db(flask_app, db_uri="postgresql:///drinkorders", echo=True):
 
 if __name__ == "__main__":
     from server import app
-
     connect_to_db(app)
