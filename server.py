@@ -101,7 +101,7 @@ def show_coffee_search_results():
     radius = request.form.get("radius")
     open_now = request.form.get("open-now")
 
-    if len(radius) == 0 or open_now == "false":
+    if open_now == "false" and len(radius) == 0:
         print("term:", term)
         print("zipcode:", location)
 
@@ -111,12 +111,45 @@ def show_coffee_search_results():
         response = requests.get(url, headers=HEADERS )
         print("response", response)
         print("response", response.json())
-        
-        
+
         search_results = response.json()
         total_results = search_results['total'] 
         coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
 
+    elif open_now == "false":
+        miles_to_meters_conversion = float(radius) * 1609
+        radius_value_as_integer= int(miles_to_meters_conversion)
+        print("term:", term)
+        print("zipcode:", location)
+        print("within radius:", radius_value_as_integer)
+
+        url = "%s?term=%s&location=%s&radius=%s" % (SEARCH_URL, term, location, radius_value_as_integer)
+        print("search url", url)
+
+        response = requests.get(url, headers=HEADERS )
+        print("response", response)
+        print("response", response.json())
+        
+        search_results = response.json()
+        total_results = search_results['total'] 
+        coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
+    
+    elif len(radius) == 0:
+        yes_open_now = bool(open_now)
+        print("term:", term)
+        print("zipcode:", location)
+        print("open_now:", yes_open_now)
+
+        url = "%s?term=%s&location=%s&open_now=%s" % (SEARCH_URL, term, location, yes_open_now)
+        print("search url", url)
+
+        response = requests.get(url, headers=HEADERS )
+        print("response", response)
+        print("response", response.json())
+        
+        search_results = response.json()
+        total_results = search_results['total'] 
+        coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
 
 
     else:
@@ -136,7 +169,6 @@ def show_coffee_search_results():
         print("response", response)
         print("response", response.json())
 
-       
         search_results = response.json()
         total_results = search_results['total'] 
         coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
