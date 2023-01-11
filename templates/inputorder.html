@@ -2,98 +2,92 @@
 
 {% block title %}Find My Coffee!{% endblock %}
 
-<!-- {% block body %}
-
-<h2>Find Your Coffee</h2>
-<form action="/coffeesearchresults" method="POST">
-  <p><label>Drink Name<input type="text" name="drinkname"></label></p>
-  <p><label>Milk Type <input type="text" name="milk"></label></p>
-  <p><label>Zipcode <input type="text" name="zipcode"></label></p>
-  <p><input type="submit"></p>
-</form>
-
-{% endblock %} -->
-
 
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-8">
       <h2>Find Your Coffee</h2>
-
-
-
-      <form method="POST" action="/preferredorder">
-      <div class="row">    
-      <label for="yes-preferredorder">Preferred Order</label>
-      <input 
-      type="checkbox" 
-      name="preferredorder" 
-      value="preferrorder" 
-      id="yes-preferredorder">
-  
+    </div>
+  </div>
+   
       
 
       <form method="POST" action="/coffeesearchresults">
         <div class="row">
-          <label class="form-label above" for="drink-name">Drink Name</label>
-      
-          <input
-            id="drink-name"
-            class="form-control"
-            type="text"
-            name="drinkname"
-          >
+          <div class="col-3">
+            <label class="form-label above" for="drink-name">Drink Name</label>
+            <input
+              id="drink-name"
+              class="form-control"
+              type="text"
+              name="drinkname"/> 
+            </div>
+
+              <div class="col-8">
+              <input 
+              type="checkbox" 
+              name="preferredorder" 
+              value="preferrorder" 
+              id="yes-preferredorder"/>
+              <label for="yes-preferredorder">Remember my Drink</label>
+              <small class="form-text text-muted">
+                (Only applies to My Coffee Profile users)
+              </small>
+          </div>
+        </div>
  
 
           <div class="row">
-            <label class="form-label above" for="milk-type">Milk Type</label>
-         
-            <div class="col-8">
-                <input
-                  id="milk-type"
-                  class="form-control"
-                  type="text"
-                  name="milk"
-                >
+            <div class="col-3">
+                <label for="milk-type">Milk Type</label>
+
+                <select name="milk" id="milk-type">
+                  <option value="whole">Whole</option>
+                  <option value="oat">Oat</option>
+                  <option value="lowfat">Lowfat</option>
+                  <option value="almond">Almond</option>
+                  <option value="cashew">Cashew</option>
+                </select>
               </div>
-          </div>
+            </div>
+
 
           <div class="row">
-            <label class="form-label above" for="search-zip">Zip Code</label>
-  
-            <input
+            <div class="col-2">
+              <label class="form-label above" for="search-zip">Zip Code</label>
+              <input
               id="search-zip"
               class="form-control"
               type="text"
-              name="zipcode"
-            >
+              name="zipcode"/>
+            </div>
           </div>
 
 
-        <div class="row">
-          <label class="form-label above" for="search-radius">Distance Radius</label>
-          <small class="form-text text-muted">
-            How far to search from your location?
-          </small>
+          <div class="row">
 
-          <div class="col-8">
+          <div class="col-5">
+            <label class="form-label above" for="search-radius">Distance Radius (Miles)</label>
+            <small class="form-text text-muted">
+              Do you want to limit your search to a set distance?
+            </small>
               <input
                 id="search-radius"
                 class="form-control"
-                type="number"
-                name="radius"
-              >
+                type="number" step="1" min="1" max="25"
+                name="radius"/>
             </div>
-
-            <div class="col-3 offset-1">
-              <select class="form-control form-select" name="unit">
-                <option value="miles">miles</option>
-                <option value="km">kilometers</option>
-              </select>
-            </div>
+<!-- 
+          <div class="col-1 offset-1">
+            <select class="form-control form-select" name="unit">
+              <option value="miles">miles</option>
+            </select>
+          </div> -->
+          
         </div>
 
+      
         <div class="row mt-4">
           <div class="col-3">
             <input type="submit" value="Find My Coffee" class="btn btn-primary">
@@ -101,7 +95,6 @@
         </div>
       </form>
     </div>
-  </div>
-</div>
+
 
 {% endblock %}

@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, DrinkName, MilkName, PreferredOrder, connect_to_db
+from model import db, User, DrinkName, PreferredOrder, connect_to_db
 
 
 def create_drink(name, description):
@@ -15,11 +15,6 @@ def get_drinks():
     "returns all drinknames"
 
     return DrinkName.query.all()
-
-def create_milk(name):
-    """Return a milk type name"""
-
-    return MilkName(name=name)
 
 
 def create_user(user_name, email, password):
@@ -44,7 +39,7 @@ def create_preferred_order(preferred_order_name):
     
     return preferredorder
 
-def get_preferred_order_by_id(preferred_order_name):
+def get_preferred_order_by_id(preferred_order_id):
     """Return a preferred order by primary key."""
 
     return PreferredOrder.query.get(preferred_order_id)

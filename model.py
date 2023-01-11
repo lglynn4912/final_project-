@@ -42,21 +42,6 @@ class PreferredOrder(db.Model):
         return f'<PreferredOrder preferred_order_name={self.preferred_order_name} preferred_order_id={self.preferred_order_id} >'
 
 
-
-class MilkName(db.Model):
-    """Milk option names"""
-
-    __tablename__ = 'milknames'
-
-    milk_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-    name = db.Column(db.String, unique=True, nullable=False)
-
-def __repr__(self):
-        return f'<MilkName name={self.name}>'
-
-
 class DrinkName(db.Model):
     """Standard list of coffee drink names"""
 

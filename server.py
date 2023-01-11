@@ -91,50 +91,100 @@ def show_coffee_search_page():
     return render_template("inputorder.html") 
 
 
+
 @app.route("/coffeesearchresults", methods=["POST"])
 def show_coffee_search_results():
     "Show coffee order search results"
-
+    
     term = request.form.get("drinkname", "milk")
     location = request.form.get("zipcode")
+    radius = (request.form.get("radius")) 
 
-    print("Search terms:")
-    print("term:", term)
-    print("zipcode:", location)
+    if len(radius) == 0:
+        print("term:", term)
+        print("zipcode:", location)
 
-    url = "%s?term=%s&location=%s" % (SEARCH_URL, term, location)
-    print("search url", url)
+        url = "%s?term=%s&location=%s" % (SEARCH_URL, term, location)
+        print("search url", url)
 
-    response = requests.get(url, headers=HEADERS )
-    print("response", response)
-    print("response", response.json())
+        response = requests.get(url, headers=HEADERS )
+        print("response", response)
+        print("response", response.json())
 
-    coffee_order_results = response.json()
+        coffee_order_results = response.json()
 
-    return render_template("results.html", search_results=coffee_order_results)
-
-
-
-@app.route("/preferredorder", methods=["POST"])
-def preferred_order(preferred_order):
-    """Create a preferred order"""
-
-    logged_in_email = session.get("email")
-    preferred_order = request.form.get("drinkname")
-
-    if logged_in_email is None:
-        flash("You must log in to create a preferred order")
-    elif not preferred_order:
-        flash("Error: you didn't select a score for your rating.")
     else:
-        user = crud.get_user_by_email(logged_in_email)
-        preferred_order = crud(preferred_order)
+        miles_to_meters_conversion = float(radius) * 1609
+        radius_value_as_string= int(miles_to_meters_conversion)
+        print("term:", term)
+        print("zipcode:", location)
+        print("within radius:", radius_value_as_string)
 
-        user_preferred_order = crud.create_preferred_order(preferred_order)
-        db.session.add(user_preferred_order)
-        db.session.commit()
 
-        flash(f"You updated your order to {preferred_order}")
+        url = "%s?term=%s&location=%s&radius=%s" % (SEARCH_URL, term, location, radius_value_as_string)
+        print("search url", url)
+
+        response = requests.get(url, headers=HEADERS )
+        print("response", response)
+        print("response", response.json())
+
+       
+        search_results = response.json()
+        total_results = search_results['total'] 
+        coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
+
+    return render_template("results.html",
+        search_results=coffee_order_results_sorted, 
+        total_results=total_results
+     )
+
+
+
+# @app.route("/coffeesearchresults", methods=["POST"])
+# def show_coffee_search_results():
+#     "Show coffee order search results"
+    
+
+#     term = request.form.get("drinkname", "milk")
+#     location = request.form.get("zipcode")
+
+#     print("Search terms:")
+#     print("term:", term)
+#     print("zipcode:", location)
+
+#     url = "%s?term=%s&location=%s" % (SEARCH_URL, term, location)
+#     print("search url", url)
+
+#     response = requests.get(url, headers=HEADERS )
+#     print("response", response)
+#     print("response", response.json())
+
+#     coffee_order_results = response.json()
+
+#     return render_template("results.html", search_results=coffee_order_results)
+
+
+# @app.route("/preferredorder", methods=["POST"])
+# def preferred_order(preferred_order):
+#     """Create a preferred order"""
+
+#     logged_in_email = session.get("email")
+#     preferred_order = request.form.get("drinkname")
+
+#     if logged_in_email is None:
+#         flash("You must log in to create a preferred order")
+#     elif not preferred_order:
+#         flash("Error: you didn't select that you wanted a preferred order.")
+#     else:
+#         user = crud.get_user_by_email(logged_in_email)
+#         preferred_order = crud.create_preferred_order(preferred_order)
+
+#         user_preferred_order = crud.create_preferred_order(preferred_order)
+#         db.session.add(user_preferred_order)
+#         db.session.commit()
+
+#         flash(f"You updated your order to {preferred_order}")
+
 
  
 if __name__ == '__main__':

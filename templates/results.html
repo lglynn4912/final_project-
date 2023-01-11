@@ -12,7 +12,7 @@
 
         <p>
           <span id="result-count">
-            {{ search_results['total'] }}
+            {{ total_results }}
           </span>
            matched your search.
         </p>
@@ -21,9 +21,13 @@
         <div class="col">
             <a href="/coffeesearchresults" target="_blank"></a>
             <ul>
-              {% for business in search_results['businesses'] %}
+              {% for business in search_results %}
               <li>
                 <a href="{{ business['url'] }}" target="_blank">{{ business['name'] }}</a>
+                {{ business['location']['display_address']|join(', ') }}
+                {{ business['distance']/1609 }}
+
+
               </li>
               {% endfor %}
             </ul>
@@ -37,4 +41,19 @@
       </span>
       Didn't find a match? Click here to update your criteria
     </p>
+
+
+    <nav class="pagination-container">
+      <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
+        &lt;
+      </button>
+      
+      <div id="pagination-numbers">
+      </div>
+      
+      <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+        &gt;
+      </button>
+    </nav>
+
 {% endblock %}
