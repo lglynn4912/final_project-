@@ -18,19 +18,26 @@
         </p>
 
 
-        <div class="col">
+        <div class="card" style="width: 54rem;">
+          <div class="card-header">
+            Featured
+          </div>
             <a href="/coffeesearchresults" target="_blank"></a>
-            <ul>
+            <ul class="list-group list-group-flush">
               {% for business in search_results %}
-              <li>
+              
+              <li class="list-group-item">
                 <a href="{{ business['url'] }}" target="_blank">{{ business['name'] }}</a>
-                {{ business['location']['display_address']|join(', ') }}
-                {{ business['distance']/1609 }}
-
-
-              </li>
+                
+                <p class="card-text">{{ business['distance']/1609 }} miles</p>
+                <p class="card-text">
+                  Rating(1-5) = {{ business['rating'] }}
+                  Review Count = {{ business['review_count'] }}</p>
+               <p class="card-text"> Price ($ - $$$$) {{ business['price'] }}</p>
+                <p class="card-text">{{ business['location']['display_address']|join(', ') }}
               {% endfor %}
-            </ul>
+              </li>
+            </ul>  
         </div>
     <p>
       <span id="additional-results">

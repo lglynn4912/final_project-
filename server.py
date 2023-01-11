@@ -110,18 +110,22 @@ def show_coffee_search_results():
         response = requests.get(url, headers=HEADERS )
         print("response", response)
         print("response", response.json())
+        
+        
+        search_results = response.json()
+        total_results = search_results['total'] 
+        coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
 
-        coffee_order_results = response.json()
 
     else:
         miles_to_meters_conversion = float(radius) * 1609
-        radius_value_as_string= int(miles_to_meters_conversion)
+        radius_value_as_integer= int(miles_to_meters_conversion)
         print("term:", term)
         print("zipcode:", location)
-        print("within radius:", radius_value_as_string)
+        print("within radius:", radius_value_as_integer)
 
 
-        url = "%s?term=%s&location=%s&radius=%s" % (SEARCH_URL, term, location, radius_value_as_string)
+        url = "%s?term=%s&location=%s&radius=%s" % (SEARCH_URL, term, location, radius_value_as_integer)
         print("search url", url)
 
         response = requests.get(url, headers=HEADERS )
@@ -132,10 +136,10 @@ def show_coffee_search_results():
         search_results = response.json()
         total_results = search_results['total'] 
         coffee_order_results_sorted =  sorted(search_results['businesses'], key=lambda x: x['distance'])
-
+  
     return render_template("results.html",
         search_results=coffee_order_results_sorted, 
-        total_results=total_results
+        total_results=total_results,
      )
 
 
