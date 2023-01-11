@@ -39,18 +39,18 @@
  
 
           <div class="row">
-            <div class="col-3">
-                <label for="milk-type">Milk Type</label>
+            <div class="col-4">
+                <label for="open-now">Open Now?</label>
+                <small class="form-text text-muted">
+                  Only display results that are open now 
+                </small>
+                <select name="open-now" id="open-now">
+                  <option value="true">true</option>
+                  <option value="false">false</option>
 
-                <select name="milk" id="milk-type">
-                  <option value="whole">Whole</option>
-                  <option value="oat">Oat</option>
-                  <option value="lowfat">Lowfat</option>
-                  <option value="almond">Almond</option>
-                  <option value="cashew">Cashew</option>
                 </select>
-              </div>
             </div>
+              </div>
 
 
           <div class="row">
@@ -70,7 +70,7 @@
           <div class="col-5">
             <label class="form-label above" for="search-radius">Distance Radius (Miles)</label>
             <small class="form-text text-muted">
-              Do you want to limit your search to a set distance?
+              Limit your search to a set distance?
             </small>
               <input
                 id="search-radius"
@@ -78,13 +78,7 @@
                 type="number" step="1" min="1" max="25"
                 name="radius"/>
             </div>
-<!-- 
-          <div class="col-1 offset-1">
-            <select class="form-control form-select" name="unit">
-              <option value="miles">miles</option>
-            </select>
-          </div> -->
-          
+
         </div>
 
       
@@ -95,6 +89,7 @@
         </div>
       </form>
     </div>
+
 
 
 {% endblock %}

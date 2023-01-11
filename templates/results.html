@@ -33,7 +33,7 @@
                 <p class="card-text">
                   Rating(1-5) = {{ business['rating'] }}
                   Review Count = {{ business['review_count'] }}</p>
-               <p class="card-text"> Price ($ - $$$$) {{ business['price'] }}</p>
+                <p class="card-text"> Price ($ - $$$$): {{ business['price'] }}</p>
                 <p class="card-text">{{ business['location']['display_address']|join(', ') }}
               {% endfor %}
               </li>
