@@ -1,14 +1,15 @@
-.header {
+navbar navbar-expand-lg bg-light {
   height: 160px;
   padding-top: 0.8em;
   text-align: center;
   font-size: 3em;
-  background: pink url(/static/images/coffeecup.png) no-repeat right;
+  background: rgba(255, 192, 203, 0.962);
   background-size: 220px 210px;
   justify-content: center;
   align-items: center;
   margin-bottom: 0.67em;
 }
+
 
 img {
   width: 100%;
@@ -46,4 +47,10 @@ th {
 .row > .above {
   margin-bottom: 0;
   margin-top: 10px;
+}
+
+.box1 {
+  background-color: #000;
+  color: #fff;
+  opacity: .5;
 }

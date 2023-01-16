@@ -6,9 +6,12 @@
 
 {% block content %}
 
-
+<br>
+<br>
+<br>
+<br>
     <div id="coffee-search-results">
-      <h2>Coffee Search Results</h2>
+      <h2>Your Search Results:</h2>
 
         <p>
           <span id="result-count">
@@ -20,7 +23,7 @@
 
         <div class="card" style="width: 36rem;">
           <div class="card-header">
-            Featured
+            Featured (closest 20 results)
           </div>
             <a href="/coffeesearchresults" target="_blank"></a>
             <ul class="list-group list-group-flush">
@@ -29,38 +32,26 @@
               <li class="list-group-item">
                 <a href="{{ business['url'] }}" target="_blank">{{ business['name'] }}</a>
                 
-                <p class="card-text">{{ business['distance']/1609 }} miles</p>
+                <p class="card-text">{{ (business['distance']/1609)|round(1) }} miles</p>
                 <p class="card-text">
                   Rating(1-5) = {{ business['rating'] }}
                   Review Count = {{ business['review_count'] }}</p>
                 <p class="card-text"> Price ($ - $$$$): {{ business['price'] }}</p>
-                <p class="card-text">{{ business['location']['display_address']|join(', ') }}
-              {% endfor %}
+                <p class="card-text">{{ business['location']['display_address']|join(', ') }}</p>
               </li>
+                {% endfor %}
+
             </ul>  
         </div>
     <p>
       <span id="additional-results">
         <p>
-          <a class="btn btn-primary" href="/inputorder">
-            Try Again
-          </a>
       </span>
-      Didn't find a match? Click here to update your criteria
-    </p>
+      Didn't find a match? 
+    <a class="btn btn-primary" href="/inputorder">
+      Try Again
+    </a>
+  </p>
 
-
-    <nav class="pagination-container">
-      <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
-        &lt;
-      </button>
-      
-      <div id="pagination-numbers">
-      </div>
-      
-      <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
-        &gt;
-      </button>
-    </nav>
 
 {% endblock %}
