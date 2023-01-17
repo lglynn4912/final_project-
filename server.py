@@ -102,8 +102,13 @@ def show_coffee_search_results():
     open_now = request.form.get("open-now")
 
   
+    if len(location) < 5:
 
-    if open_now == "false" and len(radius) == 0:
+        flash(f"Zipcode required. Please input a valid zipcode")
+        return redirect("/inputorder")
+
+
+    elif open_now == "false" and len(radius) == 0:
         print("term:", term)
         print("zipcode:", location)
 

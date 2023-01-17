@@ -3,7 +3,7 @@ navbar navbar-expand-lg bg-light {
   padding-top: 0.8em;
   text-align: center;
   font-size: 3em;
-  background: rgba(255, 192, 203, 0.962);
+  background: rgba(187, 87, 104, 0.962);
   background-size: 220px 210px;
   justify-content: center;
   align-items: center;
@@ -50,7 +50,15 @@ th {
 }
 
 .box1 {
-  background-color: #000;
+  background-color: rgba(170, 171, 176, 0.854);
   color: #fff;
-  opacity: .5;
+  opacity: .8;
 }
+
+.box2 {
+  background-color: rgba(154, 165, 241, 0.853);
+  color: rgb(0, 0, 0);
+  opacity: .75;
+}
+
+

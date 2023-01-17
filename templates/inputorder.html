@@ -4,101 +4,103 @@
 
 
 {% block content %}
+
 <br>
-<br>
-<br>
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-8">
-      <h2>Find Your Coffee:</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <h2>Coffee Order Input:</h2>
+      </div>
     </div>
   </div>
-
 <br>
+
+
+<div class="wrapper">
+<div class="box box2">
+<div class="container">
+  <form method="POST" action="/coffeesearchresults">
 <br>
-<br>
-   
-      
+    <div class="row">
+      <div class="col-12">
+          <label for="open-now">Open Now?</label>
+          <small class="form-text text-muted">
+            Only display results that are open now 
+          </small>
+          <select name="open-now" id="open-now">
+            <option value="true">yes</option>
+            <option value="false">no</option>
+          </select>
+      </div>
+    </div>
+  <br> 
 
-      <form method="POST" action="/coffeesearchresults">
-        <div class="row">
-          <div class="col-3">
-            <label class="form-label above" for="drink-name">Drink Name</label>
-            <input
-              id="drink-name"
-              class="form-control"
-              type="text"
-              name="drinkname"
-              placeholder="e.g. flat white"/> 
-            </div>
 
-              <div class="col-8">
-              <input 
-              type="checkbox" 
-              name="preferredorder" 
-              value="preferrorder" 
-              id="yes-preferredorder"/>
-              <label for="yes-preferredorder">Remember my Drink</label>
-              <small class="form-text text-muted">
-                (Only applies to My Coffee Profile users)
-              </small>
-          </div>
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label above" for="search-zip">Zip Code (required)</label>
+        <input
+        id="search-zip"
+        class="form-control"
+        type="text"
+        name="zipcode"/>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label above" for="drink-name">Drink Name</label>
+        <input
+          id="drink-name"
+          class="form-control"
+          type="text"
+          name="drinkname"
+          placeholder="e.g. flat white"/> 
         </div>
- 
+      </div>
 
-          <div class="row">
-            <div class="col-4">
-                <label for="open-now">Open Now?</label>
-                <small class="form-text text-muted">
-                  Only display results that are open now 
-                </small>
-                <select name="open-now" id="open-now">
-                  <option value="true">yes</option>
-                  <option value="false">no</option>
-
-                </select>
-            </div>
-              </div>
-
-
-          <div class="row">
-            <div class="col-2">
-              <label class="form-label above" for="search-zip">Zip Code</label>
-              <input
-              id="search-zip"
-              class="form-control"
-              type="text"
-              name="zipcode"/>
-            </div>
-          </div>
+    <div class="row">
+      <div class="col-8">
+          <input 
+          type="checkbox" 
+          name="preferredorder" 
+          value="preferrorder" 
+          id="yes-preferredorder"/>
+          <label for="yes-preferredorder">Remember My Coffee Order</label>
+          <small class="form-text text-muted">
+            My Coffee Profile users only
+          </small>
+      </div>
+    </div>
+    <br>
 
 
-          <div class="row">
-
-          <div class="col-5">
-            <label class="form-label above" for="search-radius">Distance Radius (Miles)</label>
-            <small class="form-text text-muted">
-              Limit your search to a set distance?
-            </small>
-              <input
-                id="search-radius"
-                class="form-control"
-                type="number" step="1" min="1" max="25"
-                name="radius"/>
-            </div>
-
+    <div class="row">
+      <div class="col-5">
+        <label class="form-label above" for="search-radius">Distance Radius (miles)</label>
+        <small class="form-text text-muted">
+          Limit to a set distance?
+        </small>
+          <input
+            id="search-radius"
+            class="form-control"
+            type="number" step="0.5" min="0.5" max="25"
+            name="radius"/>
         </div>
-
-      
-        <div class="row mt-4">
-          <div class="col-3">
-            <input type="submit" value="Find My Coffee" class="btn btn-primary">
-          </div>
-        </div>
-      </form>
     </div>
 
+  
+        <div class="row mt-4">
+            <div class="col-2">
+              <input type="submit" value="Find My Coffee" class="btn btn-primary">
+            </div>
+        </div>
+  </form>
+<br>
+</div>
 
+</div>
+</div>
 
 {% endblock %}
